@@ -63,8 +63,7 @@ def download_images(keyword, url):
                             
                             img_data = base64.b64decode(encoded)
                             if is_valid_image(img_data):
-                                img_name = sanitize_filename(f"{img_alt}.{file_extension}")
-                                img_name = os.path.splitext(img_name)[0] + ".png"
+                                img_name = sanitize_filename(img_alt) + ".png"
                                 img_path = os.path.join(output_folder, img_name)
                                 
                                 # Base64 verisini png olarak kaydet
@@ -82,14 +81,7 @@ def download_images(keyword, url):
                         try:
                             img_data = requests.get(img_url).content
                             if is_valid_image(img_data):
-                                img_name = os.path.basename(urlparse(img_url).path)
-                                img_name = unquote(img_name)
-                                img_name = img_name.replace("/", "_").replace("\\", "_").replace("?", "_")
-                                img_name = os.path.splitext(img_name)[0] + ".png"  # Dosya adını .png uzantısı ile kaydet
-                                
-                                # Dosya adını temizle
-                                img_name = sanitize_filename(img_name)
-                                
+                                img_name = sanitize_filename(img_alt) + ".png"
                                 img_path = os.path.join(output_folder, img_name)
                                 
                                 # Resmi indir ve doğrula
